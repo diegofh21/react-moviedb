@@ -497,6 +497,7 @@ export const Home = () => {
               <h4 className="text-lg">Move up to see the previous page (🔼), move down (🔽) to see the next page</h4>
               <h4 className="text-lg">Press ENTER (↩️) to see movie details</h4>
               <h4 className="text-lg">Press SHIFT (⬆️) to see TV shows details</h4>
+              <h4 className="text-lg">Press BACKSPACE (⬅️) to exit from the details view</h4>
             </div>
 
             {/* MOVIES CAROUSEL */}
