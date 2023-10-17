@@ -58,6 +58,10 @@ body {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.bg-body-blue {
+  background: #3a7bd5;
+}
+
 .content {
   background-image: url('/src/assets/img/moviedb-banner.jpg');
   background-repeat: no-repeat;

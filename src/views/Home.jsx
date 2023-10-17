@@ -484,12 +484,20 @@ export const Home = () => {
             <div className="container max-w-[1400px] px-4">
               <h4 className="text-xl mt-10">Actual Movie Genre: <span className="font-bold">{selectedMovieGenre}</span></h4>
               <h4 className="text-xl">Actual Tv Shows Genre: <span className="font-bold">{selectedTVGenre}</span></h4>
+              <h4 className="text-lg">Select any Genre from the navigation bar to see the corresponding movie or tv show </h4>
             </div>
 
+            {/* INSTRUCTIONS */}
+            <div className="container max-w-[1400px] px-4">
+              <h4 className="text-lg mt-10">Move left(⬅️) to see the previous slide, move right (➡️) to see the next slide</h4>
+              <h4 className="text-lg">Move up to see the previous page (⬆️), move down (⬇️) to see the next page </h4>
+            </div>
 
             {/* MOVIES CAROUSEL */}
-            <div className="max-w-[1400px] h-[780px] m-auto pb-16 pt-5 px-4 relative group">
-              <h2 className="text-4xl text-white font-semibold mb-10">Discover new movies</h2>
+            <div className="max-w-[1400px] h-[780px] m-auto pb-40 pt-5 px-4 relative group bg-body-blue rounded bg-body-blue my-5 shadow-2xl mb-10">
+              <h2 className="text-4xl font-semibold mb-2">Discover new movies</h2>
+              <h3 className=''>Current slide: {(currentIndex + 1)}</h3>
+              <h3 className='mb-10'>Current page: {pageMovie} / {totalPagesMovie}</h3>
               {movies[currentIndex] && (
                 <>
                   <div style={{
@@ -503,7 +511,7 @@ export const Home = () => {
 
                   {/* DESCRIPTION AND DETAILS BUTTON */}
                   <div className='group:block absolute top-[30%] left-[30%]'>
-                    <div className="bg-black/60 w-[80%] rounded p-5 mb-10">
+                    <div className="bg-black/60 w-[80%] rounded p-5 mb-10 text-white">
                       <h2 className='text-4xl font-semibold'>{movies[currentIndex].title}</h2>
                       <br />
                       <h4>Release Date: <span className="font-bold">{new Date(movies[currentIndex].release_date).toLocaleDateString()}</span></h4>
@@ -534,10 +542,11 @@ export const Home = () => {
               </div>
             </div>
 
-
             {/* TV SHOWS CAROUSEL */}
-            <div className="max-w-[1400px] h-[780px] m-auto py-16 px-4 relative group mb-20">
-              <h2 className="text-4xl text-white font-semibold mb-10">Discover TV Shows</h2>
+            <div className="max-w-[1400px] h-[780px] m-auto pb-40 pt-5 px-4 relative group mb-20 bg-body-blue rounded shadow-2xl">
+              <h2 className="text-4xl text-white font-semibold mb-3">Discover TV Shows</h2>
+              <h3 className=''>Current slide: {(currentIndexTv + 1)}</h3>
+              <h3 className='mb-10'>Current page: {pageTv} / {totalPagesTv}</h3>
               {tvShows[currentIndexTv] && (
                 <>
                   <div
