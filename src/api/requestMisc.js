@@ -23,18 +23,36 @@ export async function RequestPage(url) {
   }
 }
 
-export async function getMovies() {
+export async function getMovies(page) {
   try {
-    const resMovies = await axios.get('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc', options)
+    const resMovies = await axios.get(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`, options)
     return resMovies.data;
   } catch(error) {
     console.error(error)
   }
 }
 
-export async function getTvShows() {
+export async function getMoviesByGenre(genreId, page) {
   try {
-    const resTvShows = await axios.get('https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc&with_origin_country=US&with_original_language=en', options)
+    const resMovies = await axios.get(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`, options)
+    return resMovies.data;
+  } catch(error) {
+    console.error(error)
+  }
+}
+
+export async function getTvShows(page) {
+  try {
+    const resTvShows = await axios.get(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc&with_origin_country=US&with_original_language=en`, options)
+    return resTvShows.data;
+  } catch(error) {
+    console.error(error)
+  }
+}
+
+export async function getTvShowsByGenre(genreId, page) {
+  try {
+    const resTvShows = await axios.get(`https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`, options)
     return resTvShows.data;
   } catch(error) {
     console.error(error)

@@ -17,7 +17,6 @@ import { Redirect } from './components/Redirect';
 // Views
 // Home
 import { Home } from './views/Home';
-import { TestIndex } from './views/TestIndex';
 
 
 function App() {
@@ -33,7 +32,6 @@ function App() {
               {/* Normal routes */}
               <Route path='/' element={<Home />} />
               <Route path='/home' element={<Home />} />
-              <Route path='/test' element={<TestIndex />} />
 
               <Route path='/redirectUser' element={<Redirect />} />
 
@@ -44,7 +42,6 @@ function App() {
               {/* Normal routes */}
               <Route path='/' element={<Home />} />
               <Route path='/home' element={<Home />} />
-              <Route path='/test' element={<TestIndex />} />
 
               {/* Auth routes */}
               <Route path='/redirectUser' element={<Redirect />} />
