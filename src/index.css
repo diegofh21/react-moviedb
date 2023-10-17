@@ -46,6 +46,18 @@ body {
   min-height: 100vh;
 }
 
+.bg-body {
+  color: rgba(255, 255, 255, 0.87);
+  background: #2C3E50;
+  /* fallback for old browsers */
+  background: #3a7bd5;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #3a6073, #3a7bd5);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #3a6073, #3a7bd5);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 .content {
   background-image: url('/src/assets/img/moviedb-banner.jpg');
   background-repeat: no-repeat;

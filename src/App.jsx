@@ -1,6 +1,7 @@
 import './App.css'
 import './assets/scss/main.scss'
 import './assets/css/main.css'
+// import "tw-elements-react/dist/css/tw-elements-react.min.css";
 
 // Routing
 import { Routes, Route } from 'react-router-dom'

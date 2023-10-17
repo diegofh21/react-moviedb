@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react'
 
 //Components
 import { Header } from '../components/Header'
+import { MovieDetails } from './MovieDetails';
+import { TvShowDetails } from './TvShowDetails';
 
 //Http
 import { getMovies, getTvShows, getMovieGenres, getTvGenres, getMoviesByGenre, getTvShowsByGenre } from '../api/requestMisc';
@@ -98,8 +100,6 @@ export const Home = () => {
     const genreId = findGenreIds(newGenre, movieGenreList.genres);
 
     if (genreId !== null) {
-      // Set the selected genre and its ID
-      setSelectedMovieGenre(newGenre);
       // Verify if the page is undefined
       if (page === undefined) {
         page = 1
@@ -118,6 +118,9 @@ export const Home = () => {
           genre_names: genreNames,
         };
       });
+
+      // Set the selected genre and its ID
+      setSelectedMovieGenre(newGenre);
       setMovies(resMoviesByGenre.results)
       setMovieGen(moviesWithGenres)
       setTotalPagesMovie(500)
@@ -125,8 +128,36 @@ export const Home = () => {
       setLoading(false)
     } else {
       // Handle the case when the genre is not found
+      // // Set the selected genre and its ID
+      // setSelectedMovieGenre(newGenre);
+      // Verify if the page is undefined
+      if (page === undefined) {
+        page = 1
+      }
+
+      // Request to the API all the movies because the gender selected is All or it wasn't found in the TMDB database
+      const resMovies = await getMovies(page)
+      // Again, creates a genreMap to add the genre names to the array
+      const genreMap = {};
+      movieGenreList.genres.forEach(genre => {
+        genreMap[genre.id] = genre.name;
+      });
+      const moviesWithGenres = resMovies.results.map(movie => {
+        const genreNames = movie.genre_ids.map(genreId => genreMap[genreId]);
+        return {
+          ...movie,
+          genre_names: genreNames,
+        };
+      });
+
+      // Set the selected genre and its ID
+      setSelectedMovieGenre(newGenre);
+      setMovies(resMovies.results)
+      setMovieGen(moviesWithGenres)
+      setTotalPagesMovie(500)
+      setPageMovie(page)
       setLoading(false)
-      alert('Selected movie genre not found:', newGenre);
+      // alert('Selected movie genre not found:', newGenre);
     }
   };
 
@@ -162,8 +193,34 @@ export const Home = () => {
       setLoading(false)
     } else {
       // Handle the case when the genre is not found
+
+      // Verify if page is undefined, if so, set it to 1
+      if (page === undefined) {
+        page = 1;
+      }
+
+      // Request to the API all the TV shows because the gender selected is All or it wasn't found in the TMDB database
+      const resTvDB = await getTvShows(page)
+
+      // Again, creates a genreMap to add the genre names to the array
+      const genreMap = {};
+      tvGenreList.genres.forEach(genre => {
+        genreMap[genre.id] = genre.name;
+      });
+      const tvShowsWithGenres = resTvDB.results.map(show => {
+        const genreNames = show.genre_ids.map(genreId => genreMap[genreId]);
+        return {
+          ...show,
+          genre_names: genreNames,
+        };
+      });
+
+      setSelectedTVGenre(newGenre);
+      setTvShows(resTvDB.results)
+      setTvGen(tvShowsWithGenres)
+      setTotalPagesTv(500)
+      setPageTv(page)
       setLoading(false)
-      alert('Selected tv genre not found:', newGenre);
     }
   };
 
@@ -256,16 +313,19 @@ export const Home = () => {
   //In this part I control the events of keyboard arrow left and arrow right, then I update the slider with the corresponding index
   useEffect(() => {
     const handleKeyDown = (event) => {
-      //Prevents all the default events of the keyboard
-      event.preventDefault()
-
       if (event.key === 'ArrowLeft') {
+        //Prevents default event of Arrow Left key press
+        event.preventDefault()
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? 19 : prevIndex - 1));
         setCurrentIndexTv((prevIndex) => (prevIndex === 0 ? 19 : prevIndex - 1));
       } else if (event.key === 'ArrowRight') {
+        //Prevents default event of Arrow Right key press
+        event.preventDefault()
         setCurrentIndex((prevIndex) => (prevIndex === 19 ? 0 : prevIndex + 1));
         setCurrentIndexTv((prevIndex) => (prevIndex === 19 ? 0 : prevIndex + 1));
       } else if (event.key === 'ArrowUp') {
+        //Prevents default event of Arrow Up key press
+        event.preventDefault()
         //Pass the carousel of movies to the previous page, if is the first page then jump to the last page
         if (selectedMovieGenre === 'All') {
           setPageMovie((prevPage) => {
@@ -329,6 +389,8 @@ export const Home = () => {
           setLoading(false)
         }, 2000);
       } else if (event.key === 'ArrowDown') {
+        //Prevents default event of Arrow Down key press
+        event.preventDefault()
         //Pass the carousel of tv shows to the next page, if is the last page then jump to the first page
         if (selectedMovieGenre === 'All') {
           setPageMovie((prevPage) => {
@@ -426,6 +488,7 @@ export const Home = () => {
               <h4 className="text-xl">Actual Tv Shows Genre: <span className="font-bold">{selectedTVGenre}</span></h4>
             </div>
 
+
             {/* MOVIES CAROUSEL */}
             <div className="max-w-[1400px] h-[780px] m-auto pb-16 pt-5 px-4 relative group">
               <h2 className="text-4xl text-white font-semibold mb-10">Discover new movies</h2>
@@ -440,14 +503,17 @@ export const Home = () => {
                     />
                   </div>
 
-                  <div className='group:block absolute top-[30%] left-[30%] bg-black/60 p-5 w-[60%] rounded'>
-                    <h2 className='text-4xl font-semibold'>{movies[currentIndex].title}</h2>
-                    <br />
-                    <h4>Release Date: <span className="font-bold">{new Date(movies[currentIndex].release_date).toLocaleDateString()}</span></h4>
-                    <br />
-                    <h3 className='text-justify'>{movies[currentIndex].overview}</h3>
-                    <br />
-                    <h5>Genres: <span className="font-bold">{movieGen[currentIndex].genre_names.join(', ')}</span></h5>
+                  <div className='group:block absolute top-[30%] left-[30%]'>
+                    <div className="bg-black/60 w-[80%] rounded p-5 mb-10">
+                      <h2 className='text-4xl font-semibold'>{movies[currentIndex].title}</h2>
+                      <br />
+                      <h4>Release Date: <span className="font-bold">{new Date(movies[currentIndex].release_date).toLocaleDateString()}</span></h4>
+                      <br />
+                      <h3 className='text-justify'>{movies[currentIndex].overview}</h3>
+                      <br />
+                      <h5>Genres: <span className="font-bold">{movieGen[currentIndex].genre_names.join(', ')}</span></h5>
+                    </div>
+                    <MovieDetails movie={movies[currentIndex]} movieGenres={movieGen[currentIndex].genre_names.join(', ')} />
                   </div>
                 </>
               )}
@@ -469,14 +535,8 @@ export const Home = () => {
                 />
               </div>
 
-              {/* View details button */}
-              <div className="group:block absolute top-[70%] -translate-x-0 translate-y-[55%] left-[29%] text-2xl rounded-full bg-black/20 text-white cursor-pointer ms-5">
-                <button
-                  className="bg-primary-600 p-2 px-5 rounded-full text-lg cursor-pointer duration-300 hover:bg-primary-700 hover:duration-300">
-                  View Details
-                </button>
-              </div>
             </div>
+
 
             {/* TV SHOWS CAROUSEL */}
             <div className="max-w-[1400px] h-[780px] m-auto py-16 px-4 relative group mb-20">
@@ -499,16 +559,19 @@ export const Home = () => {
                     />
                   </div>
 
-                  <div className='group:block absolute top-[30%] left-[30%] bg-black/60 p-5 w-[60%] rounded'>
-                    <h2 className='text-4xl font-semibold'>{tvShows[currentIndexTv].name}</h2>
-                    <br />
-                    <h4>
-                      Release Date: <span className="font-bold">{new Date(tvShows[currentIndexTv].first_air_date).toLocaleDateString()}</span>
-                    </h4>
-                    <br />
-                    <h3 className='text-justify'>{tvShows[currentIndexTv].overview}</h3>
-                    <br />
-                    <h5>Genres: <span className="font-bold">{tvGen[currentIndexTv].genre_names.join(', ')}</span></h5>
+                  <div className='group:block absolute top-[30%] left-[30%]'>
+                    <div className="bg-black/60 w-[80%] rounded p-5 mb-10">
+                      <h2 className='text-4xl font-semibold'>{tvShows[currentIndexTv].name}</h2>
+                      <br />
+                      <h4>
+                        Release Date: <span className="font-bold">{new Date(tvShows[currentIndexTv].first_air_date).toLocaleDateString()}</span>
+                      </h4>
+                      <br />
+                      <h3 className='text-justify'>{tvShows[currentIndexTv].overview}</h3>
+                      <br />
+                      <h5>Genres: <span className="font-bold">{tvGen[currentIndexTv].genre_names.join(', ')}</span></h5>
+                    </div>
+                    <TvShowDetails tvShow={tvShows[currentIndexTv]} tvShowGenres={tvGen[currentIndexTv].genre_names.join(', ')} />
                   </div>
                 </>
               )}
