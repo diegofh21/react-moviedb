@@ -9,8 +9,6 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 
-import AuthUser from './AuthUser'
-
 import logoTMDB from '../assets/img/logos/tmdb-logo.svg'
 
 // ICONS
