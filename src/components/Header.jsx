@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
@@ -44,19 +44,19 @@ export const Header = ({ onMovieGenreChange, onTVGenreChange }) => {
   // States
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const [selectedMovieGenre, setSelectedMovieGenre] = useState('All');
-  const [selectedTVGenre, setSelectedTVGenre] = useState('All');
+  const [selectedMovieGenre, setSelectedMovieGenre] = useState(localStorage.getItem('movieGenre'));
+  const [selectedTVGenre, setSelectedTVGenre] = useState(localStorage.getItem('tvGenre'));
 
   const handleMovieGenreChange = (newGenre) => {
-    setSelectedMovieGenre(newGenre);
     // Here i update the genre and pass it to the parent (Home Component)
     onMovieGenreChange(newGenre);
+    setSelectedMovieGenre(newGenre);
   };
 
   const handleTVGenreChange = (newGenre) => {
-    setSelectedTVGenre(newGenre);
     // Here i update the genre and pass it to the parent (Home Component)
-    onTVGenreChange(newGenre); // Call the callback function to pass the selected TV genre
+    onTVGenreChange(newGenre);
+    setSelectedTVGenre(newGenre);
   };
 
   return (
@@ -82,12 +82,12 @@ export const Header = ({ onMovieGenreChange, onTVGenreChange }) => {
 
           <Popover.Group className="hidden lg:flex lg:gap-x-8 pe-52">
             <Popover className="relative">
-              <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-300 hover:text-white active:text-slate-200 duration-100">
+              <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-200 hover:text-white active:text-slate-200 duration-100">
                 <div className='group relative rounded focus:outline-none focus:ring px-5 py-1 font-semibold'>
                   <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-2 border-white transition-all duration-100 group-hover:w-full"></span>
                   Discover Movies
                 </div>
-                <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                <ChevronDownIcon className="h-5 w-5 flex-none text-white" aria-hidden="true" />
               </Popover.Button>
 
               <Transition
@@ -110,7 +110,7 @@ export const Header = ({ onMovieGenreChange, onTVGenreChange }) => {
                           <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
                         </div>
                         <div className="flex-auto">
-                          <button onClick={(e) => handleMovieGenreChange(item.genre)} className="block font-semibold text-gray-900">
+                          <button onClick={() => handleMovieGenreChange(item.genre)} className="block font-semibold text-gray-900">
                             {item.name}
                             <span className="absolute inset-0" />
                           </button>
@@ -122,14 +122,18 @@ export const Header = ({ onMovieGenreChange, onTVGenreChange }) => {
                 </Popover.Panel>
               </Transition>
             </Popover>
-
+            <span className="text-sm font-semibold leading-6 text-gray-900">
+              <div className='group relative rounded focus:outline-none focus:ring px-5 py-1 font-semibold text-white active:text-slate-200 duration-150'>
+                <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-2 border-white transition-all duration-100 group-hover:w-full rounded"></span>
+              </div>
+            </span>
             <Popover className="relative">
-              <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-300 hover:text-white active:text-slate-200 duration-100">
+              <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-200 hover:text-white active:text-slate-200 duration-100">
                 <div className='group relative rounded focus:outline-none focus:ring px-5 py-1 font-semibold'>
                   <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-2 border-white transition-all duration-100 group-hover:w-full"></span>
                   Discover TV Shows
                 </div>
-                <ChevronDownIcon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
+                <ChevronDownIcon className="h-5 w-5 flex-none text-white" aria-hidden="true" />
               </Popover.Button>
 
               <Transition
@@ -152,7 +156,7 @@ export const Header = ({ onMovieGenreChange, onTVGenreChange }) => {
                           <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" aria-hidden="true" />
                         </div>
                         <div className="flex-auto">
-                          <button onClick={(e) => handleTVGenreChange(item.genre)} className="block font-semibold text-gray-900">
+                          <button onClick={() => handleTVGenreChange(item.genre)} className="block font-semibold text-gray-900">
                             {item.name}
                             <span className="absolute inset-0" />
                           </button>
@@ -164,6 +168,11 @@ export const Header = ({ onMovieGenreChange, onTVGenreChange }) => {
                 </Popover.Panel>
               </Transition>
             </Popover>
+            <span className="text-sm font-semibold leading-6 text-gray-900">
+              <div className='group relative rounded focus:outline-none focus:ring px-5 py-1 font-semibold text-white active:text-slate-200 duration-150'>
+                <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-2 border-white transition-all duration-100 group-hover:w-full rounded"></span>
+              </div>
+            </span>
           </Popover.Group>
         </nav>
 
@@ -206,7 +215,7 @@ export const Header = ({ onMovieGenreChange, onTVGenreChange }) => {
                             <Disclosure.Button
                               key={item.name}
                               as="button"
-                              onClick={(e) => handleMovieGenreChange(item.genre)}
+                              onClick={() => handleMovieGenreChange(item.genre)}
                               className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-black hover:bg-gray-700 duration-200"
                             >
                               {item.name}
@@ -234,7 +243,7 @@ export const Header = ({ onMovieGenreChange, onTVGenreChange }) => {
                             <Disclosure.Button
                               key={item.name}
                               as="button"
-                              onClick={(e) => handleTVGenreChange(item.genre)}
+                              onClick={() => handleTVGenreChange(item.genre)}
                               className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-black hover:bg-gray-700 duration-200"
                             >
                               {item.name}

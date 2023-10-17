@@ -117,6 +117,7 @@ export const Home = () => {
       setMovieGen(moviesWithGenres)
       setTotalPagesMovie(500)
       setPageMovie(page)
+      setCurrentIndex(0)
       setLoading(false)
     } else {
       // Handle the case when the genre is not found
@@ -148,6 +149,7 @@ export const Home = () => {
       setMovieGen(moviesWithGenres)
       setTotalPagesMovie(500)
       setPageMovie(page)
+      setCurrentIndex(0)
       setLoading(false)
       // alert('Selected movie genre not found:', newGenre);
     }
@@ -183,6 +185,7 @@ export const Home = () => {
       setTvGen(tvShowsWithGenres)
       setTotalPagesTv(500)
       setPageTv(page)
+      setCurrentIndexTv(0)
       setLoading(false)
     } else {
       // Handle the case when the genre is not found
@@ -213,6 +216,7 @@ export const Home = () => {
       setTvGen(tvShowsWithGenres)
       setTotalPagesTv(500)
       setPageTv(page)
+      setCurrentIndexTv(0)
       setLoading(false)
     }
   };
