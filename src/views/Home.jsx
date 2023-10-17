@@ -468,6 +468,14 @@ export const Home = () => {
                   onClick={() => nextSlide('movie')}
                 />
               </div>
+
+              {/* View details button */}
+              <div className="group:block absolute top-[70%] -translate-x-0 translate-y-[55%] left-[29%] text-2xl rounded-full bg-black/20 text-white cursor-pointer ms-5">
+                <button
+                  className="bg-primary-600 p-2 px-5 rounded-full text-lg cursor-pointer duration-300 hover:bg-primary-700 hover:duration-300">
+                  View Details
+                </button>
+              </div>
             </div>
 
             {/* TV SHOWS CAROUSEL */}
