@@ -496,7 +496,7 @@ export const Home = () => {
             {/* MOVIES CAROUSEL */}
             <div className="max-w-[1400px] h-[780px] m-auto pb-40 pt-5 px-4 relative group bg-body-blue rounded bg-body-blue my-5 shadow-2xl mb-10">
               <h2 className="text-4xl font-semibold mb-2">Discover new movies</h2>
-              <h3 className=''>Current slide: {(currentIndex + 1)}</h3>
+              <h3 className=''>Current slide: {(currentIndex + 1)} / 20</h3>
               <h3 className='mb-10'>Current page: {pageMovie} / {totalPagesMovie}</h3>
               {movies[currentIndex] && (
                 <>
@@ -545,7 +545,7 @@ export const Home = () => {
             {/* TV SHOWS CAROUSEL */}
             <div className="max-w-[1400px] h-[780px] m-auto pb-40 pt-5 px-4 relative group mb-20 bg-body-blue rounded shadow-2xl">
               <h2 className="text-4xl text-white font-semibold mb-3">Discover TV Shows</h2>
-              <h3 className=''>Current slide: {(currentIndexTv + 1)}</h3>
+              <h3 className=''>Current slide: {(currentIndexTv + 1)} / 20</h3>
               <h3 className='mb-10'>Current page: {pageTv} / {totalPagesTv}</h3>
               {tvShows[currentIndexTv] && (
                 <>
