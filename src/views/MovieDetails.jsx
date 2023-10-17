@@ -5,8 +5,7 @@ import {
   TEModalDialog,
   TEModalContent,
   TEModalHeader,
-  TEModalBody,
-  TEModalFooter,
+  TEModalBody
 } from "tw-elements-react";
 
 //Icons
@@ -20,14 +19,15 @@ export const MovieDetails = (props) => {
   var movieDetail = props.movie;
   var movieGenreDetail = props.movieGenres;
 
+  // Whenever the movieDetail updates, I force the updated state
   useEffect(() => {
     setMovieDetailed(movieDetail)
   }, [movieDetail])
 
+  // useEffect to control the keyDown actions
   useEffect(() => {
     const handleKeyDown = (event) => {
       event.preventDefault();
-      console.log(event.key)
       if (event.key === 'Backspace') {
         setShowModal(false)
       } else if (event.key === 'Enter') {

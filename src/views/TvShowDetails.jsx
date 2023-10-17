@@ -17,19 +17,22 @@ import {
 
 export const TvShowDetails = (props) => {
 
+  //Set the vars
   var tvShowDetail = props.tvShow;
   var tvShowGenreDetail = props.tvShowGenres;
 
+  // Whenever the tvShowDetail updates, I force the updated state
   useEffect(() => {
     setTvShowDetailed(tvShowDetail)
   }, [tvShowDetail])
 
+  // useEffect to control the keyDown actions
   useEffect(() => {
     const handleKeyDown = (event) => {
       event.preventDefault();
       if (event.key === 'Backspace') {
         setShowModal(false)
-      } else if(event.key  === 'Shift') {
+      } else if (event.key === 'Shift') {
         setShowModal(true)
       }
     }
@@ -59,16 +62,16 @@ export const TvShowDetails = (props) => {
         </button>
       </TERipple>
 
-      {/* <!-- Modal --> */}
+      {/* Modal */}
       <TEModal show={showModal} setShow={setShowModal} scrollable>
         <TEModalDialog size="xl">
           <TEModalContent>
             <TEModalHeader style={{ background: '#3a7bd5' }}>
-              {/* <!-- Modal title --> */}
+              {/* Title */}
               <h5 className="text-xl font-medium leading-normal ">
                 {tvShowDetailed.name}
               </h5>
-              {/* <!--Close button--> */}
+              {/* Close button */}
               <button
                 type="button"
                 className="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"

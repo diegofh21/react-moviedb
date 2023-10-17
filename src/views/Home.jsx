@@ -1,5 +1,5 @@
 //eslint-disable-next-line
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 
 //Components
 import { Header } from '../components/Header'
@@ -17,14 +17,8 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon
 } from '@heroicons/react/24/outline'
-import { parse, startOfYesterday } from 'date-fns';
-import PreviousMap from 'postcss/lib/previous-map';
 
 export const Home = () => {
-
-  // Refs
-  const nextRef = useRef()
-  const prevRef = useRef()
 
   //Vars and states
   const [loading, setLoading] = useState(true);
@@ -36,8 +30,6 @@ export const Home = () => {
   const [tvGenreList, setTvGenreList] = useState([]);
   const [selectedMovieGenre, setSelectedMovieGenre] = useState('All');
   const [selectedTVGenre, setSelectedTVGenre] = useState('All');
-  const [movieGenreId, setMovieGenreId] = useState(0);
-  const [tvGenreId, setTvGenreId] = useState(0);
 
   //Pagination
   const [pageMovie, setPageMovie] = useState(1)
@@ -94,7 +86,7 @@ export const Home = () => {
   }
 
   //Handler methods
-  //Handler for genre selected in the header component
+  //Handler for movie genre selected in the header component
   const handleMovieGenreChange = async (newGenre, page) => {
     setLoading(true)
     const genreId = findGenreIds(newGenre, movieGenreList.genres);
@@ -161,6 +153,7 @@ export const Home = () => {
     }
   };
 
+  //Handler for tv show genre selected in the header component
   const handleTVGenreChange = async (newGenre, page) => {
     setLoading(true)
     // Gets the genre ID
@@ -224,6 +217,7 @@ export const Home = () => {
     }
   };
 
+  //Handler to find the genreId based on the name given in the selected of the header component
   const findGenreIds = (genreName, genreList) => {
     const selectedGenre = genreList.find((genre) => genre.name === genreName);
     if (selectedGenre) {
@@ -232,13 +226,12 @@ export const Home = () => {
     return null; // Return null if the genre is not found
   }
 
-  //Loader of movies and tv shows by genres
-
-  //For Slider
+  //For Slider/Carousel
   const [currentIndex, setCurrentIndex] = useState(0)
   const [currentIndexTv, setCurrentIndexTv] = useState(0)
 
-  //Slider methods
+  //Slider/Carousel methods
+
   //Previous slide
   const prevSlide = (movieOrTv) => {
     let newIndex;
@@ -268,7 +261,7 @@ export const Home = () => {
     setCurrentIndex(slideIndex)
   }
 
-  //Initial loader of movies and tv shows, I put here a timeout to simulate internet loading ETA 3 - 5 seconds, but that depends on the internet speed of the user
+  //Initial loader of movies and tv shows, I put here a timeout to simulate internet loading ETC 3 - 5 seconds, but that depends on the internet speed of the user
   useEffect(() => {
     loadMovies(pageMovie)
     loadTvShows(pageTv)
@@ -312,6 +305,7 @@ export const Home = () => {
 
   //In this part I control the events of keyboard arrow left and arrow right, then I update the slider with the corresponding index
   useEffect(() => {
+    // Handler of the key down event
     const handleKeyDown = (event) => {
       if (event.key === 'ArrowLeft') {
         //Prevents default event of Arrow Left key press
@@ -456,10 +450,10 @@ export const Home = () => {
       }
     };
 
-    //Event listener for keydown
+    // Event listener for keydown
     window.addEventListener('keydown', handleKeyDown);
 
-    //Unmount the listener to avoid memory leaks
+    // Unmount the listener to avoid memory leaks
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -470,12 +464,15 @@ export const Home = () => {
       {
         (loading) ?
           <>
+            {/* lOADER */}
             <div className="loader absolute top-[40%] left-[47%] text-white"></div>
           </>
           :
           <>
+            {/* HEADER */}
             <Header onMovieGenreChange={handleMovieGenreChange} onTVGenreChange={handleTVGenreChange} />
 
+            {/* BANNER OF WELCOME */}
             <div className="container mt-16 w-1/2">
               <div className="content rounded shadow-xl">
                 <h1 className="text-3xl pt-16 ps-10 font-bold">Welcome to React MovieDB</h1>
@@ -483,6 +480,7 @@ export const Home = () => {
               </div>
             </div>
 
+            {/* GENRES SELECTED */}
             <div className="container max-w-[1400px] px-4">
               <h4 className="text-xl mt-10">Actual Movie Genre: <span className="font-bold">{selectedMovieGenre}</span></h4>
               <h4 className="text-xl">Actual Tv Shows Genre: <span className="font-bold">{selectedTVGenre}</span></h4>
@@ -503,6 +501,7 @@ export const Home = () => {
                     />
                   </div>
 
+                  {/* DESCRIPTION AND DETAILS BUTTON */}
                   <div className='group:block absolute top-[30%] left-[30%]'>
                     <div className="bg-black/60 w-[80%] rounded p-5 mb-10">
                       <h2 className='text-4xl font-semibold'>{movies[currentIndex].title}</h2>
@@ -530,11 +529,9 @@ export const Home = () => {
                 <ArrowRightIcon
                   className='text-sm w-10'
                   size={30}
-                  ref={nextRef}
                   onClick={() => nextSlide('movie')}
                 />
               </div>
-
             </div>
 
 
@@ -559,6 +556,7 @@ export const Home = () => {
                     />
                   </div>
 
+                  {/* DESCRIPTION AND DETAILS BUTTON */}
                   <div className='group:block absolute top-[30%] left-[30%]'>
                     <div className="bg-black/60 w-[80%] rounded p-5 mb-10">
                       <h2 className='text-4xl font-semibold'>{tvShows[currentIndexTv].name}</h2>
