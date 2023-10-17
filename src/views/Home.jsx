@@ -493,8 +493,10 @@ export const Home = () => {
 
             {/* INSTRUCTIONS */}
             <div className="container max-w-[1400px] px-4">
-              <h4 className="text-lg mt-10">Move left(⬅️) to see the previous slide, move right (➡️) to see the next slide</h4>
-              <h4 className="text-lg">Move up to see the previous page (⬆️), move down (⬇️) to see the next page </h4>
+              <h4 className="text-lg mt-10">Move left (◀️) to see the previous slide, move right (▶️) to see the next slide</h4>
+              <h4 className="text-lg">Move up to see the previous page (🔼), move down (🔽) to see the next page</h4>
+              <h4 className="text-lg">Press ENTER (↩️) to see movie details</h4>
+              <h4 className="text-lg">Press SHIFT (⬆️) to see TV shows details</h4>
             </div>
 
             {/* MOVIES CAROUSEL */}
