@@ -1,7 +1,8 @@
 //eslint-disable-next-line
 import React, { useState, useEffect } from 'react'
 
-
+// AddOns
+import { useFocusable } from '@noriginmedia/norigin-spatial-navigation';
 
 //Components
 import { Header } from '../components/Header'
@@ -21,6 +22,9 @@ import {
 } from '@heroicons/react/24/outline'
 
 export const Home = () => {
+
+  // Spatial nav
+  const { ref, focused } = useFocusable();
 
   //Vars and states
   const [loading, setLoading] = useState(true);
@@ -56,6 +60,7 @@ export const Home = () => {
         genre_names: genreNames,
       };
     });
+    console.log(moviesWithGenres)
     setMovies(resMovieDB.results)
     setPageMovie(page)
     setTotalPagesMovie(500)
@@ -502,6 +507,17 @@ export const Home = () => {
             {/* MOVIES ASSETS */}
             <div className="max-w-[1920px] h-full m-auto pb-40 pt-5 px-4 relative group bg-body-blue rounded bg-body-blue my-5 shadow-2xl mb-10">
               <h2 className="text-4xl font-semibold mb-2">Discover new movies</h2>
+              <div className='grid grid-cols-10 mt-12'>
+                {
+                  movieGen.map((movie) =>
+                    <div className='px-2' key={movie.id}>
+                      <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`} alt="" className='rounded shadow-xl ring-4 ring-red-800' />
+                      <h4 className='text-center font-bold'>{movie.title}</h4>
+                      <h4 className='text-center font-bold'>{movie.genre_names}</h4>
+                    </div>
+                  )
+                }
+              </div>
             </div>
 
             {/* INSTRUCTIONS */}
