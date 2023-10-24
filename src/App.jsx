@@ -2,6 +2,9 @@ import './App.css'
 import './assets/scss/main.scss'
 import './assets/css/main.css'
 
+// Spatial navigation initialization
+import { init } from '@noriginmedia/norigin-spatial-navigation';
+
 // Routing
 import { Routes, Route } from 'react-router-dom'
 
@@ -13,6 +16,13 @@ import { PageNotFound } from './views/PageNotFound';
 import { Home } from './views/Home';
 
 function App() {
+  
+  init({
+    debug: true,
+    visualDebug: true,
+    
+  })
+
   return (
     <>
       <Routes>

@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@noriginmedia/norigin-spatial-navigation": "^2.0.2",
     "@splidejs/react-splide": "^0.7.12",
     "axios": "^1.5.1",
     "date-fns": "^2.30.0",

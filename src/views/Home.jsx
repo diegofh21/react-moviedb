@@ -1,6 +1,8 @@
 //eslint-disable-next-line
 import React, { useState, useEffect } from 'react'
 
+
+
 //Components
 import { Header } from '../components/Header'
 import { MovieDetails } from './MovieDetails';
@@ -117,7 +119,7 @@ export const Home = () => {
       setMovieGen(moviesWithGenres)
       setTotalPagesMovie(500)
       setPageMovie(page)
-      setCurrentIndex(0)
+      // setCurrentIndex(0)
       setLoading(false)
     } else {
       // Handle the case when the genre is not found
@@ -149,7 +151,7 @@ export const Home = () => {
       setMovieGen(moviesWithGenres)
       setTotalPagesMovie(500)
       setPageMovie(page)
-      setCurrentIndex(0)
+      // setCurrentIndex(0)
       setLoading(false)
       // alert('Selected movie genre not found:', newGenre);
     }
@@ -185,7 +187,7 @@ export const Home = () => {
       setTvGen(tvShowsWithGenres)
       setTotalPagesTv(500)
       setPageTv(page)
-      setCurrentIndexTv(0)
+      // setCurrentIndexTv(0)
       setLoading(false)
     } else {
       // Handle the case when the genre is not found
@@ -216,7 +218,7 @@ export const Home = () => {
       setTvGen(tvShowsWithGenres)
       setTotalPagesTv(500)
       setPageTv(page)
-      setCurrentIndexTv(0)
+      // setCurrentIndexTv(0)
       setLoading(false)
     }
   };
@@ -231,39 +233,39 @@ export const Home = () => {
   }
 
   //For Slider/Carousel
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [currentIndexTv, setCurrentIndexTv] = useState(0)
+  // const [currentIndex, setCurrentIndex] = useState(0)
+  // const [currentIndexTv, setCurrentIndexTv] = useState(0)
 
   //Slider/Carousel methods
 
   //Previous slide
-  const prevSlide = (movieOrTv) => {
-    let newIndex;
-    if (movieOrTv === 'movie') {
-      newIndex = currentIndex === 0 ? movies.length - 1 : currentIndex - 1;
-      setCurrentIndex(newIndex);
-    } else {
-      newIndex = currentIndexTv === 0 ? tvShows.length - 1 : currentIndexTv - 1;
-      setCurrentIndexTv(newIndex);
-    }
-  }
+  // const prevSlide = (movieOrTv) => {
+  //   let newIndex;
+  //   if (movieOrTv === 'movie') {
+  //     newIndex = currentIndex === 0 ? movies.length - 1 : currentIndex - 1;
+  //     setCurrentIndex(newIndex);
+  //   } else {
+  //     newIndex = currentIndexTv === 0 ? tvShows.length - 1 : currentIndexTv - 1;
+  //     setCurrentIndexTv(newIndex);
+  //   }
+  // }
 
   //Next slide
-  const nextSlide = (movieOrTv) => {
-    let newIndex;
-    if (movieOrTv === 'movie') {
-      newIndex = currentIndex === movies.length - 1 ? 0 : currentIndex + 1;
-      setCurrentIndex(newIndex);
-    } else {
-      newIndex = currentIndexTv === tvShows.length - 1 ? 0 : currentIndexTv + 1;
-      setCurrentIndexTv(newIndex);
-    }
-  }
+  // const nextSlide = (movieOrTv) => {
+  //   let newIndex;
+  //   if (movieOrTv === 'movie') {
+  //     newIndex = currentIndex === movies.length - 1 ? 0 : currentIndex + 1;
+  //     setCurrentIndex(newIndex);
+  //   } else {
+  //     newIndex = currentIndexTv === tvShows.length - 1 ? 0 : currentIndexTv + 1;
+  //     setCurrentIndexTv(newIndex);
+  //   }
+  // }
 
   //Go to specific slide (NOT IMPLEMENTED YET)
-  const goToSlide = (slideIndex) => {
-    setCurrentIndex(slideIndex)
-  }
+  // const goToSlide = (slideIndex) => {
+  //   setCurrentIndex(slideIndex)
+  // }
 
   //Initial loader of movies and tv shows, I put here a timeout to simulate internet loading ETC 3 - 5 seconds, but that depends on the internet speed of the user
   useEffect(() => {
@@ -275,193 +277,193 @@ export const Home = () => {
   }, [])
 
   // Initialize indexs and pages from localStorage on component mount
-  useEffect(() => {
-    const storedIndex = localStorage.getItem('currentIndex');
-    const storedIndexTv = localStorage.getItem('currentIndexTv');
-    const storedPageMovie = localStorage.getItem('pageMovie')
-    const storedPageTv = localStorage.getItem('pageTv')
-    if (storedIndex !== null) {
-      setCurrentIndex(parseInt(storedIndex, 10));
-    }
+  // useEffect(() => {
+  //   const storedIndex = localStorage.getItem('currentIndex');
+  //   const storedIndexTv = localStorage.getItem('currentIndexTv');
+  //   const storedPageMovie = localStorage.getItem('pageMovie')
+  //   const storedPageTv = localStorage.getItem('pageTv')
+  //   if (storedIndex !== null) {
+  //     setCurrentIndex(parseInt(storedIndex, 10));
+  //   }
 
-    if (storedIndexTv !== null) {
-      setCurrentIndexTv(parseInt(storedIndexTv, 10))
-    }
+  //   if (storedIndexTv !== null) {
+  //     setCurrentIndexTv(parseInt(storedIndexTv, 10))
+  //   }
 
-    if (storedPageMovie) {
-      setPageMovie(parseInt(storedPageMovie, 10));
-    }
+  //   if (storedPageMovie) {
+  //     setPageMovie(parseInt(storedPageMovie, 10));
+  //   }
 
-    if (storedPageMovie) {
-      setPageTv(parseInt(storedPageTv, 10));
-    }
-  }, []);
+  //   if (storedPageMovie) {
+  //     setPageTv(parseInt(storedPageTv, 10));
+  //   }
+  // }, []);
 
   // Here localStorage updates whenever currentIndex changes
-  useEffect(() => {
-    localStorage.setItem('currentIndex', currentIndex);
-  }, [currentIndex]);
+  // useEffect(() => {
+  //   localStorage.setItem('currentIndex', currentIndex);
+  // }, [currentIndex]);
 
   // Here localStorage updates whenever currentIndexTv changes
-  useEffect(() => {
-    localStorage.setItem('currentIndexTv', currentIndexTv);
-  }, [currentIndexTv]);
+  // useEffect(() => {
+  //   localStorage.setItem('currentIndexTv', currentIndexTv);
+  // }, [currentIndexTv]);
 
   //In this part I control the events of keyboard arrow left and arrow right, then I update the slider with the corresponding index
-  useEffect(() => {
-    // Handler of the key down event
-    const handleKeyDown = (event) => {
-      if (event.key === 'ArrowLeft') {
-        //Prevents default event of Arrow Left key press
-        event.preventDefault()
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? 19 : prevIndex - 1));
-        setCurrentIndexTv((prevIndex) => (prevIndex === 0 ? 19 : prevIndex - 1));
-      } else if (event.key === 'ArrowRight') {
-        //Prevents default event of Arrow Right key press
-        event.preventDefault()
-        setCurrentIndex((prevIndex) => (prevIndex === 19 ? 0 : prevIndex + 1));
-        setCurrentIndexTv((prevIndex) => (prevIndex === 19 ? 0 : prevIndex + 1));
-      } else if (event.key === 'ArrowUp') {
-        //Prevents default event of Arrow Up key press
-        event.preventDefault()
-        //Pass the carousel of movies to the previous page, if is the first page then jump to the last page
-        if (selectedMovieGenre === 'All') {
-          setPageMovie((prevPage) => {
-            let newPage;
-            if (prevPage <= 1) {
-              newPage = 500;
-            } else {
-              newPage = prevPage - 1
-            }
-            localStorage.setItem('pageMovie', newPage.toString())
-            loadMovies(newPage)
-            setCurrentIndex(0)
-            return newPage;
-          })
-        } else {
-          setPageMovie((prevPage) => {
-            let newPage;
-            if (prevPage <= 1) {
-              newPage = 500;
-            } else {
-              newPage = prevPage - 1
-            }
-            localStorage.setItem('pageMovie', newPage.toString())
-            handleMovieGenreChange(selectedMovieGenre, newPage)
-            setCurrentIndex(0)
-            return newPage;
-          })
-        }
+  // useEffect(() => {
+  //   // Handler of the key down event
+  //   const handleKeyDown = (event) => {
+  //     if (event.key === 'ArrowLeft') {
+  //       //Prevents default event of Arrow Left key press
+  //       event.preventDefault()
+  //       setCurrentIndex((prevIndex) => (prevIndex === 0 ? 19 : prevIndex - 1));
+  //       setCurrentIndexTv((prevIndex) => (prevIndex === 0 ? 19 : prevIndex - 1));
+  //     } else if (event.key === 'ArrowRight') {
+  //       //Prevents default event of Arrow Right key press
+  //       event.preventDefault()
+  //       setCurrentIndex((prevIndex) => (prevIndex === 19 ? 0 : prevIndex + 1));
+  //       setCurrentIndexTv((prevIndex) => (prevIndex === 19 ? 0 : prevIndex + 1));
+  //     } else if (event.key === 'ArrowUp') {
+  //       //Prevents default event of Arrow Up key press
+  //       event.preventDefault()
+  //       //Pass the carousel of movies to the previous page, if is the first page then jump to the last page
+  //       if (selectedMovieGenre === 'All') {
+  //         setPageMovie((prevPage) => {
+  //           let newPage;
+  //           if (prevPage <= 1) {
+  //             newPage = 500;
+  //           } else {
+  //             newPage = prevPage - 1
+  //           }
+  //           localStorage.setItem('pageMovie', newPage.toString())
+  //           loadMovies(newPage)
+  //           setCurrentIndex(0)
+  //           return newPage;
+  //         })
+  //       } else {
+  //         setPageMovie((prevPage) => {
+  //           let newPage;
+  //           if (prevPage <= 1) {
+  //             newPage = 500;
+  //           } else {
+  //             newPage = prevPage - 1
+  //           }
+  //           localStorage.setItem('pageMovie', newPage.toString())
+  //           handleMovieGenreChange(selectedMovieGenre, newPage)
+  //           setCurrentIndex(0)
+  //           return newPage;
+  //         })
+  //       }
 
-        //Pass the carousel of tv shows to the previous page, if is the first page then jump to the last page
-        if (selectedTVGenre === 'All') {
-          setPageTv((prevPage) => {
-            let newPage;
-            if (prevPage <= 1) {
-              newPage = 500;
-            } else {
-              newPage = prevPage - 1;
-            }
-            localStorage.setItem('pageTv', newPage.toString())
-            loadTvShows(newPage)
-            setCurrentIndexTv(0)
-            return newPage;
-          })
-        } else {
-          setPageTv((prevPage) => {
-            let newPage;
-            if (prevPage <= 1) {
-              newPage = 500;
-            } else {
-              newPage = prevPage - 1;
-            }
-            localStorage.setItem('pageTv', newPage.toString())
-            handleTVGenreChange(selectedTVGenre, newPage)
-            setCurrentIndexTv(0)
-            return newPage;
-          })
-        }
+  //       //Pass the carousel of tv shows to the previous page, if is the first page then jump to the last page
+  //       if (selectedTVGenre === 'All') {
+  //         setPageTv((prevPage) => {
+  //           let newPage;
+  //           if (prevPage <= 1) {
+  //             newPage = 500;
+  //           } else {
+  //             newPage = prevPage - 1;
+  //           }
+  //           localStorage.setItem('pageTv', newPage.toString())
+  //           loadTvShows(newPage)
+  //           setCurrentIndexTv(0)
+  //           return newPage;
+  //         })
+  //       } else {
+  //         setPageTv((prevPage) => {
+  //           let newPage;
+  //           if (prevPage <= 1) {
+  //             newPage = 500;
+  //           } else {
+  //             newPage = prevPage - 1;
+  //           }
+  //           localStorage.setItem('pageTv', newPage.toString())
+  //           handleTVGenreChange(selectedTVGenre, newPage)
+  //           setCurrentIndexTv(0)
+  //           return newPage;
+  //         })
+  //       }
 
-        //Timeout to load the data
-        setTimeout(() => {
-          setLoading(false)
-        }, 2000);
-      } else if (event.key === 'ArrowDown') {
-        //Prevents default event of Arrow Down key press
-        event.preventDefault()
-        //Pass the carousel of tv shows to the next page, if is the last page then jump to the first page
-        if (selectedMovieGenre === 'All') {
-          setPageMovie((prevPage) => {
-            let newPage;
-            if (prevPage >= 500) {
-              newPage = 1;
-            } else {
-              newPage = prevPage + 1
-            }
-            localStorage.setItem('pageMovie', newPage.toString())
-            loadMovies(newPage)
-            setCurrentIndex(0)
-            return newPage;
-          })
-        } else {
-          setPageMovie((prevPage) => {
-            let newPage;
-            if (prevPage >= 500) {
-              newPage = 1;
-            } else {
-              newPage = prevPage + 1
-            }
-            localStorage.setItem('pageMovie', newPage.toString())
-            handleMovieGenreChange(selectedMovieGenre, newPage)
-            setCurrentIndex(0)
-            return newPage;
-          })
-        }
+  //       //Timeout to load the data
+  //       setTimeout(() => {
+  //         setLoading(false)
+  //       }, 2000);
+  //     } else if (event.key === 'ArrowDown') {
+  //       //Prevents default event of Arrow Down key press
+  //       event.preventDefault()
+  //       //Pass the carousel of tv shows to the next page, if is the last page then jump to the first page
+  //       if (selectedMovieGenre === 'All') {
+  //         setPageMovie((prevPage) => {
+  //           let newPage;
+  //           if (prevPage >= 500) {
+  //             newPage = 1;
+  //           } else {
+  //             newPage = prevPage + 1
+  //           }
+  //           localStorage.setItem('pageMovie', newPage.toString())
+  //           loadMovies(newPage)
+  //           setCurrentIndex(0)
+  //           return newPage;
+  //         })
+  //       } else {
+  //         setPageMovie((prevPage) => {
+  //           let newPage;
+  //           if (prevPage >= 500) {
+  //             newPage = 1;
+  //           } else {
+  //             newPage = prevPage + 1
+  //           }
+  //           localStorage.setItem('pageMovie', newPage.toString())
+  //           handleMovieGenreChange(selectedMovieGenre, newPage)
+  //           setCurrentIndex(0)
+  //           return newPage;
+  //         })
+  //       }
 
-        //Pass the carousel of tv shows to the next page, if is the last page then jump to the first page
-        if (selectedTVGenre === 'All') {
-          setPageTv((prevPage) => {
-            let newPage;
-            if (prevPage >= 500) {
-              newPage = 1;
-            } else {
-              newPage = prevPage + 1;
-            }
-            localStorage.setItem('pageTv', newPage.toString())
-            loadTvShows(newPage)
-            setCurrentIndexTv(0)
-            return newPage;
-          })
-        } else {
-          setPageTv((prevPage) => {
-            let newPage;
-            if (prevPage >= 500) {
-              newPage = 1;
-            } else {
-              newPage = prevPage + 1;
-            }
-            localStorage.setItem('pageTv', newPage.toString())
-            handleTVGenreChange(selectedTVGenre, newPage)
-            setCurrentIndexTv(0)
-            return newPage;
-          })
-        }
+  //       //Pass the carousel of tv shows to the next page, if is the last page then jump to the first page
+  //       if (selectedTVGenre === 'All') {
+  //         setPageTv((prevPage) => {
+  //           let newPage;
+  //           if (prevPage >= 500) {
+  //             newPage = 1;
+  //           } else {
+  //             newPage = prevPage + 1;
+  //           }
+  //           localStorage.setItem('pageTv', newPage.toString())
+  //           loadTvShows(newPage)
+  //           setCurrentIndexTv(0)
+  //           return newPage;
+  //         })
+  //       } else {
+  //         setPageTv((prevPage) => {
+  //           let newPage;
+  //           if (prevPage >= 500) {
+  //             newPage = 1;
+  //           } else {
+  //             newPage = prevPage + 1;
+  //           }
+  //           localStorage.setItem('pageTv', newPage.toString())
+  //           handleTVGenreChange(selectedTVGenre, newPage)
+  //           setCurrentIndexTv(0)
+  //           return newPage;
+  //         })
+  //       }
 
-        //Timeout to load the data
-        setTimeout(() => {
-          setLoading(false)
-        }, 2000);
-      }
-    };
+  //       //Timeout to load the data
+  //       setTimeout(() => {
+  //         setLoading(false)
+  //       }, 2000);
+  //     }
+  //   };
 
-    // Event listener for keydown
-    window.addEventListener('keydown', handleKeyDown);
+  //   // Event listener for keydown
+  //   window.addEventListener('keydown', handleKeyDown);
 
-    // Unmount the listener to avoid memory leaks
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedTVGenre, selectedMovieGenre]);
+  //   // Unmount the listener to avoid memory leaks
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown);
+  //   };
+  // }, [selectedTVGenre, selectedMovieGenre]);
 
   return (
     <>
@@ -477,35 +479,46 @@ export const Home = () => {
             <Header onMovieGenreChange={handleMovieGenreChange} onTVGenreChange={handleTVGenreChange} />
 
             {/* BANNER OF WELCOME */}
-            <div className="container mt-16 w-1/2">
+            {/* <div className="container mt-16 w-1/2">
               <div className="content rounded shadow-xl">
                 <h1 className="text-3xl pt-16 ps-10 font-bold">Welcome to React MovieDB</h1>
                 <h3 className='text-xl pt-24 ps-10 font-semibold'>Thousand of nice choices to entertain you and your family!</h3>
               </div>
-            </div>
+            </div> */}
 
             {/* GENRES SELECTED */}
-            <div className="container max-w-[1400px] px-4">
-              <h4 className="text-xl mt-10">Actual Movie Genre: <span className="font-bold">{selectedMovieGenre}</span></h4>
-              <h4 className="text-xl">Actual Tv Shows Genre: <span className="font-bold">{selectedTVGenre}</span></h4>
+            <div className="container">
               <h4 className="text-lg">Select any Genre from the navigation bar to see the corresponding movie or tv show </h4>
+              <div className="grid grid-cols-12">
+                <div className="col-span-2">
+                  <h4 className="text-xl">Actual Movie Genre: <span className="font-bold">{selectedMovieGenre}</span></h4>
+                </div>
+                <div className="col-span-10">
+                  <h4 className="text-xl">Actual Tv Shows Genre: <span className="font-bold">{selectedTVGenre}</span></h4>
+                </div>
+              </div>
+            </div>
+
+            {/* MOVIES ASSETS */}
+            <div className="max-w-[1920px] h-full m-auto pb-40 pt-5 px-4 relative group bg-body-blue rounded bg-body-blue my-5 shadow-2xl mb-10">
+              <h2 className="text-4xl font-semibold mb-2">Discover new movies</h2>
             </div>
 
             {/* INSTRUCTIONS */}
-            <div className="container max-w-[1400px] px-4">
+            {/* <div className="container max-w-[1400px] px-4">
               <h4 className="text-lg mt-10">Move left (◀️) to see the previous slide, move right (▶️) to see the next slide</h4>
               <h4 className="text-lg">Move up to see the previous page (🔼), move down (🔽) to see the next page</h4>
               <h4 className="text-lg">Press ENTER (↩️) to see movie details</h4>
               <h4 className="text-lg">Press SHIFT (⬆️) to see TV shows details</h4>
               <h4 className="text-lg">Press BACKSPACE (⬅️) to exit from the details view</h4>
-            </div>
+            </div> */}
 
             {/* MOVIES CAROUSEL */}
-            <div className="max-w-[1400px] h-[780px] m-auto pb-40 pt-5 px-4 relative group bg-body-blue rounded bg-body-blue my-5 shadow-2xl mb-10">
+            {/* <div className="max-w-[1400px] h-[780px] m-auto pb-40 pt-5 px-4 relative group bg-body-blue rounded bg-body-blue my-5 shadow-2xl mb-10">
               <h2 className="text-4xl font-semibold mb-2">Discover new movies</h2>
               <h3 className=''>Current slide: {(currentIndex + 1)} / 20</h3>
-              <h3 className='mb-10'>Current page: {pageMovie} / {totalPagesMovie}</h3>
-              {movies[currentIndex] && (
+              <h3 className='mb-10'>Current page: {pageMovie} / {totalPagesMovie}</h3> */}
+            {/* {movies[currentIndex] && (
                 <>
                   <div style={{
                     backgroundImage: `url('https://www.themoviedb.org/t/p/w1280_and_h720_face${movies[currentIndex].poster_path}')`,
@@ -514,10 +527,10 @@ export const Home = () => {
                   <div className='group:block absolute top-[10%] -translate-x-0 translate-y-[40%] left-[10%] text-2xl'>
                     <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movies[currentIndex].poster_path}`} alt="" className='rounded duration-700' id='poster'
                     />
-                  </div>
+                  </div> */}
 
-                  {/* DESCRIPTION AND DETAILS BUTTON */}
-                  <div className='group:block absolute top-[30%] left-[30%]'>
+            {/* DESCRIPTION AND DETAILS BUTTON */}
+            {/* <div className='group:block absolute top-[30%] left-[30%]'>
                     <div className="bg-black/60 w-[80%] rounded p-5 mb-10 text-white">
                       <h2 className='text-4xl font-semibold'>{movies[currentIndex].title}</h2>
                       <br />
@@ -530,27 +543,27 @@ export const Home = () => {
                     <MovieDetails movie={movies[currentIndex]} movieGenres={movieGen[currentIndex].genre_names.join(', ')} />
                   </div>
                 </>
-              )}
-              {/* Left Arrow */}
-              <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[55%] left-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer ms-5'>
+              )} */}
+            {/* Left Arrow */}
+            {/* <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[55%] left-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer ms-5'>
                 <ArrowLeftIcon
                   className='text-sm w-10'
                   size={30}
                   onClick={() => prevSlide('movie')}
                 />
-              </div>
-              {/* Right Arrow */}
-              <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[55%] right-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer me-5'>
+              </div> */}
+            {/* Right Arrow */}
+            {/* <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[55%] right-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer me-5'>
                 <ArrowRightIcon
                   className='text-sm w-10'
                   size={30}
                   onClick={() => nextSlide('movie')}
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* TV SHOWS CAROUSEL */}
-            <div className="max-w-[1400px] h-[780px] m-auto pb-40 pt-5 px-4 relative group mb-20 bg-body-blue rounded shadow-2xl">
+            {/* <div className="max-w-[1400px] h-[780px] m-auto pb-40 pt-5 px-4 relative group mb-20 bg-body-blue rounded shadow-2xl">
               <h2 className="text-4xl text-white font-semibold mb-3">Discover TV Shows</h2>
               <h3 className=''>Current slide: {(currentIndexTv + 1)} / 20</h3>
               <h3 className='mb-10'>Current page: {pageTv} / {totalPagesTv}</h3>
@@ -570,10 +583,10 @@ export const Home = () => {
                       className='rounded duration-700'
                       id='poster'
                     />
-                  </div>
+                  </div> */}
 
-                  {/* DESCRIPTION AND DETAILS BUTTON */}
-                  <div className='group:block absolute top-[30%] left-[30%]'>
+            {/* DESCRIPTION AND DETAILS BUTTON */}
+            {/* <div className='group:block absolute top-[30%] left-[30%]'>
                     <div className="bg-black/60 w-[80%] rounded p-5 mb-10">
                       <h2 className='text-4xl font-semibold'>{tvShows[currentIndexTv].name}</h2>
                       <br />
@@ -588,24 +601,24 @@ export const Home = () => {
                     <TvShowDetails tvShow={tvShows[currentIndexTv]} tvShowGenres={tvGen[currentIndexTv].genre_names.join(', ')} />
                   </div>
                 </>
-              )}
-              {/* Left Arrow */}
-              <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[55%] left-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer ms-5'>
+              )} */}
+            {/* Left Arrow */}
+            {/* <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[55%] left-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer ms-5'>
                 <ArrowLeftIcon
                   className='text-sm w-10'
                   size={30}
                   onClick={() => prevSlide('tv')}
                 />
-              </div>
-              {/* Right Arrow */}
-              <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[55%] right-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer me-5'>
+              </div> */}
+            {/* Right Arrow */}
+            {/* <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[55%] right-5 text-2xl rounded-full bg-black/20 text-white cursor-pointer me-5'>
                 <ArrowRightIcon
                   className='text-sm w-10'
                   size={30}
                   onClick={() => nextSlide('tv')}
                 />
               </div>
-            </div>
+            </div> */}
           </>
       }
     </>
